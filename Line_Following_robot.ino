@@ -5,48 +5,48 @@ const int rMotRev=12;
 const int onblack= 300;  // reading for black line from sensor is less than this
 const int onWhite= 700; // reading for white line is greater than this
 
-void setup() {
+void setup() 
+{
 
-  Serial.begin(9600);
-  
-  // pinMode(A0,INPUT);  
+  Serial.begin(9600);   //beginning the serial communication(UART) at a baud rate of 9600.
+  //declaring the input pins for the 5 infra-red sensors...
+  //format pinMode(A0,INPUT);  
   pinMode(A1,INPUT);  //extreme left sensor
   pinMode(A2,INPUT);  //left
   pinMode(A3,INPUT);  // middle sensor
-  pinMode(A4,INPUT);   // right
+  pinMode(A4,INPUT);  // right
   pinMode(A5,INPUT);  // extreme right sensor
-    
+  //declaring the output pins for the motor driver.
   pinMode(lMotFwd,OUTPUT); 
   pinMode(rMotFwd,OUTPUT);
   pinMode(lMotRev,OUTPUT);  
   pinMode(rMotRev,OUTPUT); 
-
- 
-
+  
 }
 
-
-bool isOnBlack(int sensor){
+//function to check 
+bool isOnBlack(int sensor)
+{
 
 if( sensor<=onblack)
 return true;
 else
 return false;
+  
 }
 
 
-bool isOnWhite(int sensor){
+bool isOnWhite(int sensor)
+{
   if(sensor>=onWhite)
   return true;
   else
   return false;
 }
 
-
-
-
 void moveForward()
 {
+  
   digitalWrite(lMotFwd,HIGH);
   digitalWrite(rMotFwd,HIGH);
 
@@ -93,7 +93,8 @@ digitalWrite(rMotRev,LOW);
   
 }
 
-void loop() {
+void loop() 
+{
   // put your main code here, to run repeatedly:
 int sensor1=analogRead(A1);//sensor1  Extreme Left
 int sensor2=analogRead(A2);//sensor2 
@@ -112,13 +113,17 @@ Serial.print("\t Extreme Right: ");
 Serial.println(sensor5);
 
 
-if( isOnBlack(sensor1)){
+if( isOnBlack(sensor1))
+{
   turnLeft();
-}else{
+}
+else
+{
 
   if(isOnBlack(sensor3)&&isOnWhite(sensor1)){
     moveForward();
-  }else
+}
+else
 
   if( isOnWhite(sensor1)&& isOnWhite(sensor3)&& isOnBlack(sensor5)  ){
     turnRight();
@@ -136,6 +141,5 @@ if( isOnBlack(sensor1)){
 
 
 }
-
 
 }
